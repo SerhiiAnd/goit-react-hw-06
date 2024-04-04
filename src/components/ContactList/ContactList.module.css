@@ -1,0 +1,9 @@
+.buttonStyle {
+  border: 1px solid rgb(0, 0, 0);
+  height: 25px;
+  width: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(130, 157, 214);
+  margin-bottom: 20px;
+}

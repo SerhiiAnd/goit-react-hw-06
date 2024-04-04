@@ -1,0 +1,26 @@
+.form {
+  display: flex;
+  flex-direction: column;
+}
+.text {
+  display: block;
+  height: 50px;
+  padding-left: 20px;
+}
+input {
+  padding: 5px 20px;
+  border: 1px solid black;
+  height: 20px;
+  border-radius: 5px;
+  margin-bottom: 32px;
+}
+.buttonStyle {
+  border: 1px solid rgb(0, 0, 0);
+  height: 40px;
+  width: auto;
+  max-width: 150px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(130, 157, 214);
+  overflow: hidden;
+}
