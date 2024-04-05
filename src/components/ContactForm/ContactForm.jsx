@@ -1,59 +1,46 @@
-import { Component } from "react";
-import { nanoid } from "nanoid";
+import { nanoid } from "https://cdn.jsdelivr.net/npm/nanoid/nanoid.js";
+import { useDispatch } from "react-redux";
+import { addContact } from "../../redux/contactsSlice";
 import css from "./ContactForm.module.css";
 
-class ContactForm extends Component {
-  state = {
-    name: "",
-    number: "",
-  };
+export default function ContactForm() {
+  const dispatch = useDispatch();
 
-  handleChange = (e) => {
-    const { name, value } = e.target;
-    this.setState({ [name]: value });
-  };
-
-  handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
+    const { name, number } = e.target.elements;
 
-    const { name, number } = this.state;
-    const contact = { id: nanoid(), name, number };
-    this.props.onAddContact(contact);
+    if (!name.value || !number.value) {
+      alert("Please fill in all fields!");
+      return;
+    }
 
-    this.setState({ name: "", number: "" });
+    dispatch(
+      addContact({
+        name: name.value,
+        number: number.value,
+        id: nanoid(),
+      })
+    );
+
+    e.target.reset();
   };
 
-  render() {
-    const { name, number } = this.state;
+  return (
+    <form className={css.form} onSubmit={handleSubmit}>
+      <label className={css.label} htmlFor="name">
+        Name
+      </label>
+      <input className={css.field} id="name" name="name" />
 
-    return (
-      <form className={css.form} onSubmit={this.handleSubmit}>
-        <label className={css.text}>
-          Name:
-          <input
-            type="text"
-            name="name"
-            value={name}
-            onChange={this.handleChange}
-            required
-          />
-        </label>
-        <label className={css.text}>
-          Number:
-          <input
-            type="tel"
-            name="number"
-            value={number}
-            onChange={this.handleChange}
-            required
-          />
-        </label>
-        <button className={css.buttonStyle} type="submit">
-          Add contact
-        </button>
-      </form>
-    );
-  }
+      <label className={css.label} htmlFor="number">
+        Number
+      </label>
+      <input className={css.field} id="number" name="number" />
+
+      <button className={css.buttonStyle} type="submit">
+        Add contact
+      </button>
+    </form>
+  );
 }
-
-export default ContactForm;
